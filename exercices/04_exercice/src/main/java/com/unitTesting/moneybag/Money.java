@@ -1,6 +1,6 @@
 package com.unitTesting.moneybag;
 
-class Money {
+class Money implements IMoney {
   private int fAmount;
   private String fCurrency;
 
@@ -16,20 +16,20 @@ class Money {
   public String currency() {
     return fCurrency;
   }
-
+/*
   public Money add(Money m) {
-    return null;
-    // TODO : Méthode à implémenter
+    int somme = this.amount()+m.amount();
+    return new Money(somme,"CHF");
+  }
+*/
+  public boolean equals(Money m){
+    return m.amount() == this.amount() && m.currency().equals(this.currency());
   }
 
-  //========================= Troisième partie ============================
-
-  /* TODO : Cette méthode est réservée à la partie 3
-  public Money add(Money m) {
-    if (m.currency().equals(currency()))
-      return new Money(amount() + m.amount(), currency());
-    return new MoneyBag(this, m);
+  public IMoney add(IMoney aMoney) {
+    if (aMoney.currency().equals(currency()))
+      return new Money(amount() + aMoney.amount(), currency());
+    return new MoneyBag(this, aMoney);
   }
-  */
 
 }

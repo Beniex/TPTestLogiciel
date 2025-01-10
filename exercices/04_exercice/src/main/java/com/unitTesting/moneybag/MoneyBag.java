@@ -2,7 +2,7 @@ package com.unitTesting.moneybag;
 
 import java.util.Vector;
 
-class MoneyBag {
+class MoneyBag implements IMoney{
 
   private Vector<Money> fMonies = new Vector<Money>();
 
@@ -32,5 +32,33 @@ class MoneyBag {
       }
     }
   }
+
+
+  public boolean equals(MoneyBag mb) {
+    if (mb == null){
+      return false;
+    }
+    if (this.fMonies.size() != mb.fMonies.size()) return false;
+
+    for (Money thisMoney : this.fMonies) {
+      boolean found = false;
+      for (Money otherMoney : mb.fMonies) {
+        if (thisMoney.equals(otherMoney)) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) return false;
+    }
+    return true;
+  }
+
+
+  public IMoney add(IMoney aMoney) {
+    if (aMoney.currency().equals(currency()))
+      return new Money(amount() + aMoney.amount(), currency());
+    return new MoneyBag(this, aMoney);
+  }
+
 }
 
